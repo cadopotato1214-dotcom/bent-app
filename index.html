@@ -3395,6 +3395,7 @@
     // ─── HISTORY VIEW ───────────────────────────────────────────────────────
     function HistoryView({ workoutLog, setWorkoutLog }) {
       const [showStrength, setShowStrength] = useState(false);
+      const [confirmDeleteId, setConfirmDeleteId] = useState(null);
       const ratingColors = ["", "#ef4444", "#f59e0b", "#888", "#22c55e", "#10b981"];
 
       // Get top compound exercises for 1RM tracking
@@ -3490,7 +3491,7 @@
                             </div>
                           )}
                           <button
-                            onClick={() => setWorkoutLog(prev => prev.filter(x => x.id !== w.id))}
+                            onClick={() => setConfirmDeleteId(w.id)}
                             style={{
                               background: "none", border: "none", color: "#ef4444", cursor: "pointer",
                               fontSize: 14, padding: 4, minWidth: 32, minHeight: 32, display: "flex",
@@ -3501,10 +3502,25 @@
                           </button>
                         </div>
                       </div>
-                      <div style={{ fontSize: 12, color: "#888" }}>
-                        {w.exercises.length} exercises • {w.exercises.reduce((sum, ex) => sum + ex.sets.filter(s => s.done).length, 0)} sets
-                        {totalVolume > 0 && ` • ${totalVolume > 1000 ? Math.round(totalVolume / 1000) + "k" : totalVolume} lbs`}
-                      </div>
+                      {confirmDeleteId === w.id ? (
+                        <div style={{ background: "rgba(239,68,68,0.08)", border: "1px solid #ef444444", borderRadius: 8, padding: 12, marginTop: 8 }}>
+                          <div style={{ fontSize: 13, fontWeight: 600, color: "#ef4444", marginBottom: 8 }}>Delete this workout?</div>
+                          <div style={{ fontSize: 12, color: "#888", marginBottom: 10 }}>This will remove {w.dayName} ({formatDate(w.date)}) and update your fatigue and recovery data.</div>
+                          <div style={{ display: "flex", gap: 8 }}>
+                            <button onClick={() => setConfirmDeleteId(null)} style={{
+                              flex: 1, background: "#1a1a1a", color: "#888", border: "1px solid #333", padding: "8px", borderRadius: 8, fontSize: 13, cursor: "pointer", minHeight: 40, touchAction: "manipulation",
+                            }}>Cancel</button>
+                            <button onClick={() => { setWorkoutLog(prev => prev.filter(x => x.id !== w.id)); setConfirmDeleteId(null); }} style={{
+                              flex: 1, background: "#ef4444", color: "#fff", border: "none", padding: "8px", borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: "pointer", minHeight: 40, touchAction: "manipulation",
+                            }}>Yes, Delete</button>
+                          </div>
+                        </div>
+                      ) : (
+                        <div style={{ fontSize: 12, color: "#888" }}>
+                          {w.exercises.length} exercises • {w.exercises.reduce((sum, ex) => sum + ex.sets.filter(s => s.done).length, 0)} sets
+                          {totalVolume > 0 && ` • ${totalVolume > 1000 ? Math.round(totalVolume / 1000) + "k" : totalVolume} lbs`}
+                        </div>
+                      )}
                     </Card>
                   );
                 })
