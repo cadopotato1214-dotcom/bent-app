@@ -588,6 +588,172 @@
       },
     ];
 
+    // ─── PROGRAM RECOVERY & SCHEDULING DATA ──────────────────────────────────
+    const PROGRAM_RECOVERY = {
+      ppl: {
+        weeklySchedule: { 1: "Push", 2: "Pull", 3: "Legs", 4: "Rest", 5: "Push", 6: "Pull", 0: "Legs" },
+        restDaysPerWeek: 1, deloadEveryWeeks: 5, deloadVolumeReduction: 0.5, deloadIntensityReduction: 0.2,
+        mesoLength: 5, minRestBetweenSameMuscle: 48,
+        recoveryNotes: "48-72 hrs between same muscle groups. High frequency split — watch for cumulative fatigue after week 3.",
+        deloadSigns: ["Stalled or declining reps on compound lifts for 2+ sessions", "Persistent joint soreness lasting more than 48hrs", "Poor sleep quality or motivation drop", "Pump ratings declining below 3/5"],
+      },
+      arnold: {
+        weeklySchedule: { 1: "Chest & Back", 2: "Shoulders & Arms", 3: "Legs", 4: "Rest", 5: "Chest & Back", 6: "Shoulders & Arms", 0: "Legs" },
+        restDaysPerWeek: 1, deloadEveryWeeks: 6, deloadVolumeReduction: 0.5, deloadIntensityReduction: 0.15,
+        mesoLength: 6, minRestBetweenSameMuscle: 72,
+        recoveryNotes: "Very high volume split. Prioritize 8+ hrs sleep. Chest/back supersets are taxing — consider extra rest after week 4.",
+        deloadSigns: ["Total volume per session drops noticeably", "Soreness persisting into next session for same muscle", "Joint pain above 2/4 in feedback", "Weight on compounds hasn't progressed in 2 weeks"],
+      },
+      cbum: {
+        weeklySchedule: { 1: "Back & Biceps", 2: "Chest & Triceps", 3: "Hamstrings & Glutes", 4: "Rest", 5: "Shoulders & Arms", 6: "Quads & Calves", 0: "Rest" },
+        restDaysPerWeek: 2, deloadEveryWeeks: 6, deloadVolumeReduction: 0.4, deloadIntensityReduction: 0.2,
+        mesoLength: 6, minRestBetweenSameMuscle: 72,
+        recoveryNotes: "Classic physique focus — prioritize mind-muscle connection over heavy loads. Back trained with highest priority.",
+        deloadSigns: ["Performance vs last rated at 1/3 for 2+ exercises", "Cumulative soreness score above 4/5 for 3+ muscles", "Failed to hit target reps on primary compounds"],
+      },
+      upperlower: {
+        weeklySchedule: { 1: "Upper A", 2: "Lower A", 3: "Rest", 4: "Upper B", 5: "Lower B", 6: "Rest", 0: "Rest" },
+        restDaysPerWeek: 3, deloadEveryWeeks: 8, deloadVolumeReduction: 0.5, deloadIntensityReduction: 0.25,
+        mesoLength: 8, minRestBetweenSameMuscle: 48,
+        recoveryNotes: "Most sustainable split. 3 rest days allow great recovery. Good for natural lifters. Can run longer mesocycles.",
+        deloadSigns: ["Strength plateaus on main lifts for 3+ sessions", "Fatigue score exceeding 70", "Joint pain feedback averaging above 2"],
+      },
+      dorian: {
+        weeklySchedule: { 1: "Chest & Triceps", 2: "Back & Rear Delts", 3: "Rest", 4: "Shoulders & Biceps", 5: "Legs", 6: "Rest", 0: "Rest" },
+        restDaysPerWeek: 3, deloadEveryWeeks: 5, deloadVolumeReduction: 0.3, deloadIntensityReduction: 0.25,
+        mesoLength: 5, minRestBetweenSameMuscle: 168,
+        recoveryNotes: "HIT-style — every working set to failure. CNS recovery is critical. Never train if not fully recovered. 8-9 hrs sleep minimum.",
+        deloadSigns: ["ANY decline in weights used vs previous session", "Inability to reach failure on working sets", "Feeling 'flat' or unrested before session", "Soreness lasting more than 72 hrs"],
+      },
+      ronnie: {
+        weeklySchedule: { 1: "Back & Biceps", 2: "Chest & Triceps", 3: "Rest", 4: "Shoulders", 5: "Legs", 6: "Arms", 0: "Rest" },
+        restDaysPerWeek: 2, deloadEveryWeeks: 6, deloadVolumeReduction: 0.5, deloadIntensityReduction: 0.3,
+        mesoLength: 6, minRestBetweenSameMuscle: 168,
+        recoveryNotes: "Extremely high volume (40+ sets/session). Only for advanced lifters. Take extra rest days if joints are sore. Food and sleep are king.",
+        deloadSigns: ["Performance declining on ANY compound lift", "Joint pain above 1/4 on any exercise", "Total workout duration increasing (sign of longer rest needed)", "Motivation and aggression dropping"],
+      },
+      xframe: {
+        weeklySchedule: { 1: "Push", 2: "Pull", 3: "Legs", 4: "Rest", 5: "Upper", 6: "Lower", 0: "Rest" },
+        restDaysPerWeek: 2, deloadEveryWeeks: 6, deloadVolumeReduction: 0.4, deloadIntensityReduction: 0.2,
+        mesoLength: 6, minRestBetweenSameMuscle: 48,
+        recoveryNotes: "Focus on building width (delts, lats, quads) for the X-frame look. Adjust recovery based on weak point prioritization.",
+        deloadSigns: ["Pump quality dropping below 3/5 on target muscles", "Side delt or lat soreness persisting into next session", "Rep performance declining on isolation work"],
+      },
+      brosplit: {
+        weeklySchedule: { 1: "Chest", 2: "Back", 3: "Shoulders", 4: "Legs", 5: "Arms", 6: "Rest", 0: "Rest" },
+        restDaysPerWeek: 2, deloadEveryWeeks: 7, deloadVolumeReduction: 0.5, deloadIntensityReduction: 0.2,
+        mesoLength: 7, minRestBetweenSameMuscle: 168,
+        recoveryNotes: "Each muscle hit once/week with high volume. Good recovery between sessions. Avoid training chest day after shoulders — overlap on anterior delts.",
+        deloadSigns: ["Strength stalling for 2+ weeks on primary lifts", "Soreness not resolving within 48 hrs", "Accumulated fatigue score above 60"],
+      },
+      phul: {
+        weeklySchedule: { 1: "Upper Power", 2: "Lower Power", 3: "Rest", 4: "Upper Hypertrophy", 5: "Lower Hypertrophy", 6: "Rest", 0: "Rest" },
+        restDaysPerWeek: 3, deloadEveryWeeks: 6, deloadVolumeReduction: 0.5, deloadIntensityReduction: 0.25,
+        mesoLength: 8, minRestBetweenSameMuscle: 48,
+        recoveryNotes: "Power days are CNS-demanding. Ensure full recovery before hypertrophy days. Rest day between power and hypertrophy is essential.",
+        deloadSigns: ["Power day lifts declining or stalling for 2+ sessions", "Difficulty completing hypertrophy volume after power days", "Joint stress accumulating from heavy compounds"],
+      },
+      phat: {
+        weeklySchedule: { 1: "Upper Power", 2: "Lower Power", 3: "Rest", 4: "Back & Shoulders", 5: "Lower Hypertrophy", 6: "Chest & Arms", 0: "Rest" },
+        restDaysPerWeek: 2, deloadEveryWeeks: 6, deloadVolumeReduction: 0.4, deloadIntensityReduction: 0.3,
+        mesoLength: 8, minRestBetweenSameMuscle: 48,
+        recoveryNotes: "Layne Norton's system. Speed work on hypertrophy days uses 65-70% of power day weights. Don't go heavy on hypertrophy days.",
+        deloadSigns: ["Speed reps feeling heavy/slow on hypertrophy days", "Power day strength declining", "Persistent fatigue carrying over between sessions", "Sleep quality deteriorating"],
+      },
+    };
+
+    // ─── SMART RECOVERY ENGINE ───────────────────────────────────────────────
+    function computeRecoveryInsights(workoutLog, activeProgram, mesocycle, schedule) {
+      const insights = { needsDeload: false, deloadReasons: [], suggestions: [], streakDays: 0, restDaysSinceLastWorkout: 0 };
+      if (!activeProgram || workoutLog.length === 0) return insights;
+
+      const recovery = PROGRAM_RECOVERY[activeProgram];
+      if (!recovery) return insights;
+
+      const today = new Date();
+      const todayStr = today.toISOString().split("T")[0];
+
+      // Calculate training streak and rest
+      const sortedLog = [...workoutLog].sort((a, b) => b.date.localeCompare(a.date));
+      if (sortedLog.length > 0) {
+        const lastWorkoutDate = new Date(sortedLog[0].date + "T12:00:00");
+        insights.restDaysSinceLastWorkout = Math.floor((today - lastWorkoutDate) / 86400000);
+      }
+
+      // Count consecutive training days
+      let streak = 0;
+      for (let i = 0; i < 14; i++) {
+        const checkDate = new Date(today);
+        checkDate.setDate(checkDate.getDate() - i);
+        const dateStr = checkDate.toISOString().split("T")[0];
+        if (workoutLog.some(w => w.date === dateStr)) streak++;
+        else break;
+      }
+      insights.streakDays = streak;
+
+      // Check if deload is due based on mesocycle week
+      if (mesocycle && recovery.deloadEveryWeeks) {
+        if (mesocycle.currentWeek >= recovery.deloadEveryWeeks && !mesocycle.deloadWeeks?.includes(mesocycle.currentWeek)) {
+          insights.needsDeload = true;
+          insights.deloadReasons.push("You've completed " + mesocycle.currentWeek + " weeks — " + recovery.deloadEveryWeeks + "-week deload cycle recommended for this program.");
+        }
+      }
+
+      // Analyze recent feedback for deload signs
+      const recentWorkouts = sortedLog.slice(0, 6);
+      let lowPerformanceCount = 0;
+      let highSorenessCount = 0;
+      let highJointPainCount = 0;
+      let lowPumpCount = 0;
+
+      recentWorkouts.forEach(w => {
+        w.exercises.forEach(ex => {
+          if (ex.feedback) {
+            if (ex.feedback.performance === 1) lowPerformanceCount++;
+            if (ex.feedback.soreness >= 4) highSorenessCount++;
+            if (ex.feedback.jointPain >= 3) highJointPainCount++;
+            if (ex.feedback.pump <= 2) lowPumpCount++;
+          }
+        });
+      });
+
+      if (lowPerformanceCount >= 3) {
+        insights.needsDeload = true;
+        insights.deloadReasons.push("Performance declining — " + lowPerformanceCount + " exercises rated 'worse than last time' recently.");
+      }
+      if (highJointPainCount >= 2) {
+        insights.needsDeload = true;
+        insights.deloadReasons.push("Joint pain detected in " + highJointPainCount + " exercises — back off to protect joints.");
+      }
+      if (highSorenessCount >= 4) {
+        insights.suggestions.push("High soreness in multiple muscles. Consider an extra rest day or reduce volume by 20%.");
+      }
+      if (lowPumpCount >= 3) {
+        insights.suggestions.push("Pump quality is declining. Check hydration, sleep, and carb intake before training.");
+      }
+
+      // Streak warnings
+      if (streak >= 5 && recovery.restDaysPerWeek >= 2) {
+        insights.suggestions.push("You've trained " + streak + " days in a row. This program recommends " + recovery.restDaysPerWeek + " rest days per week — take a break.");
+      }
+
+      // Recovery tips from program data
+      if (recovery.recoveryNotes) {
+        insights.programTip = recovery.recoveryNotes;
+      }
+
+      // Deload protocol details
+      if (insights.needsDeload) {
+        insights.deloadProtocol = {
+          volumeReduction: Math.round(recovery.deloadVolumeReduction * 100),
+          intensityReduction: Math.round(recovery.deloadIntensityReduction * 100),
+          duration: "1 week",
+        };
+      }
+
+      return insights;
+    }
+
     // ─── UTILITY FUNCTIONS ───────────────────────────────────────────────────
     const generateId = () => Math.random().toString(36).substr(2, 9);
 
@@ -652,6 +818,125 @@
         const replacement = sameMuscleMoptions[Math.floor(Math.random() * sameMuscleMoptions.length)];
         return { ...ex, exercise: replacement.name, equipment: replacement.equipment };
       }).filter(Boolean);
+    };
+
+    // ─── EXERCISE FORM TIPS DATABASE ───────────────────────────────────────
+    const EXERCISE_TIPS = {
+      "Barbell Bench Press": "Retract shoulder blades, arch upper back, plant feet. Lower bar to nipple line. Drive through feet.",
+      "Incline Dumbbell Press": "30-45° angle. Let DBs track naturally. Full stretch at bottom, squeeze at top.",
+      "Dumbbell Flyes": "Slight bend in elbows throughout. Go deep for stretch. Think hugging a tree.",
+      "Cable Crossovers": "Lean slightly forward. Cross hands at bottom for peak contraction.",
+      "Machine Chest Press": "Set seat so handles align with mid-chest. Full ROM, controlled eccentric.",
+      "Barbell Rows": "Hinge at hips ~45°. Pull to lower chest. Squeeze shoulder blades together.",
+      "Pull-Ups": "Full dead hang at bottom. Drive elbows down and back. Chin over bar.",
+      "Lat Pulldowns": "Lean back slightly. Pull to upper chest. Squeeze lats at bottom.",
+      "Seated Cable Rows": "Sit tall, pull to belly button. Squeeze back, controlled return.",
+      "Dumbbell Rows": "Support with opposite hand. Row to hip, not shoulder. Full stretch at bottom.",
+      "Overhead Press": "Brace core tight. Press straight up, head through at top. Lock out overhead.",
+      "Lateral Raises": "Slight bend in elbows. Raise to shoulder height. Lead with pinkies.",
+      "Arnold Press": "Rotate palms as you press up. Full ROM from front to overhead.",
+      "Barbell Squats": "Break at hips and knees together. Chest up, knees tracking over toes. Below parallel.",
+      "Romanian Deadlifts": "Hinge at hips, slight knee bend. Bar close to legs. Feel hamstring stretch.",
+      "Leg Press": "Feet shoulder-width, mid-platform. Full depth without lower back rounding.",
+      "Barbell Curls": "Elbows pinned at sides. No swinging. Squeeze at top, slow eccentric.",
+      "Hammer Curls": "Neutral grip throughout. Controlled movement. Great for brachialis.",
+      "Tricep Pushdowns": "Elbows pinned at sides. Full extension, squeeze triceps. Controlled return.",
+      "Skull Crushers": "Lower to forehead/behind head. Elbows pointed at ceiling. Full stretch.",
+      "Leg Extensions": "Adjust pad to sit above ankles. Full extension, hold 1 second at top.",
+      "Lying Leg Curls": "Hips pressed into pad. Curl all the way up, squeeze hamstrings.",
+      "Standing Calf Raises": "Full stretch at bottom, full squeeze at top. Hold peak 2 seconds.",
+      "Face Pulls": "High cable, rope attachment. Pull to face, external rotate at end. Elbows high.",
+      "Deadlifts": "Bar over mid-foot. Chest up, hips and shoulders rise together. Lock out at top.",
+      "Dips (Chest)": "Lean forward for chest emphasis. Full depth, elbows flared slightly.",
+    };
+
+    // ─── ESTIMATED 1RM CALCULATOR ────────────────────────────────────────────
+    const calculate1RM = (weight, reps) => {
+      if (!weight || !reps || reps <= 0 || weight <= 0) return 0;
+      if (reps === 1) return weight;
+      // Epley formula
+      return Math.round(weight * (1 + reps / 30));
+    };
+
+    const getExercise1RMHistory = (workoutLog, exerciseName) => {
+      const history = [];
+      workoutLog.forEach(w => {
+        w.exercises.forEach(ex => {
+          if (ex.name === exerciseName) {
+            const doneSets = ex.sets.filter(s => s.done && s.weight > 0 && s.reps > 0);
+            if (doneSets.length > 0) {
+              const best1RM = Math.max(...doneSets.map(s => calculate1RM(s.weight, s.reps)));
+              if (best1RM > 0) history.push({ date: w.date, e1rm: best1RM });
+            }
+          }
+        });
+      });
+      return history;
+    };
+
+    // ─── PER-MUSCLE RECOVERY STATUS ──────────────────────────────────────────
+    const computeMuscleRecovery = (workoutLog) => {
+      const recovery = {};
+      const now = new Date();
+      const muscles = Object.keys(VOLUME_LANDMARKS);
+
+      muscles.forEach(muscle => {
+        let lastTrainedDate = null;
+        let totalSetsLast = 0;
+        let avgSoreness = 0;
+        let sorenessCount = 0;
+
+        // Find most recent workout for this muscle
+        for (let i = workoutLog.length - 1; i >= 0; i--) {
+          const w = workoutLog[i];
+          const muscleExercises = w.exercises.filter(e => e.muscle === muscle);
+          if (muscleExercises.length > 0) {
+            if (!lastTrainedDate) {
+              lastTrainedDate = w.date;
+              totalSetsLast = muscleExercises.reduce((sum, e) => sum + e.sets.filter(s => s.done).length, 0);
+            }
+            muscleExercises.forEach(e => {
+              if (e.feedback && e.feedback.soreness) {
+                avgSoreness += e.feedback.soreness;
+                sorenessCount++;
+              }
+            });
+            if (sorenessCount >= 2) break; // enough data
+          }
+        }
+
+        if (!lastTrainedDate) {
+          recovery[muscle] = { status: "fresh", hours: 999, pct: 100, label: "Ready" };
+          return;
+        }
+
+        const hoursSince = (now - new Date(lastTrainedDate + "T12:00:00")) / 3600000;
+        const avgSore = sorenessCount > 0 ? avgSoreness / sorenessCount : 2;
+
+        // Recovery model: base 48hrs, +12hrs per soreness point above 2, +6hrs per set above 10
+        const baseRecoveryHrs = 48;
+        const sorenessBonus = Math.max(0, (avgSore - 2)) * 12;
+        const volumeBonus = Math.max(0, (totalSetsLast - 10)) * 6;
+        const totalRecoveryNeeded = baseRecoveryHrs + sorenessBonus + volumeBonus;
+        const pct = Math.min(100, Math.round((hoursSince / totalRecoveryNeeded) * 100));
+
+        let status, label;
+        if (pct >= 100) { status = "fresh"; label = "Recovered"; }
+        else if (pct >= 70) { status = "recovering"; label = "Almost Ready"; }
+        else if (pct >= 40) { status = "fatigued"; label = "Still Fatigued"; }
+        else { status = "sore"; label = "Very Fatigued"; }
+
+        recovery[muscle] = { status, hours: Math.round(hoursSince), pct, label, lastTrained: lastTrainedDate };
+      });
+
+      return recovery;
+    };
+
+    // ─── SMALL MUSCLES TO AUTO-REMOVE FROM DELOAD ────────────────────────────
+    const DELOAD_REMOVE_MUSCLES = ["traps", "forearms", "calves", "abs"];
+    const filterDeloadExercises = (exercises, isDeload) => {
+      if (!isDeload) return exercises;
+      return exercises.filter(ex => !DELOAD_REMOVE_MUSCLES.includes(ex.muscle));
     };
 
     // ─── ICON COMPONENT ──────────────────────────────────────────────────────
@@ -1195,10 +1480,11 @@
           mesocycle: data.mesocycle || null,
           equipmentFilter: data.equipmentFilter || "full",
           customPrograms: data.customPrograms || [],
+          schedule: data.schedule || null,
         };
       };
 
-      const initialState = currentUser ? loadUserState(currentUser.username) : { workoutLog: [], activeProgram: null, mesocycle: null, equipmentFilter: "full", customPrograms: [] };
+      const initialState = currentUser ? loadUserState(currentUser.username) : { workoutLog: [], activeProgram: null, mesocycle: null, equipmentFilter: "full", customPrograms: [], schedule: null };
 
       const [activeTab, setActiveTab] = useState("dashboard");
       const [workoutLog, setWorkoutLog] = useState(initialState.workoutLog);
@@ -1207,12 +1493,15 @@
       const [currentWorkout, setCurrentWorkout] = useState(null);
       const [equipmentFilter, setEquipmentFilter] = useState(initialState.equipmentFilter);
       const [customPrograms, setCustomPrograms] = useState(initialState.customPrograms);
+      const [schedule, setSchedule] = useState(initialState.schedule);
+      const [showScheduleSetup, setShowScheduleSetup] = useState(false);
+      const [pendingProgramId, setPendingProgramId] = useState(null);
 
       // Auto-save to localStorage whenever state changes
       useEffect(() => {
         if (!currentUser) return;
-        saveUserData(currentUser.username, { workoutLog, activeProgram, mesocycle, equipmentFilter, customPrograms });
-      }, [workoutLog, activeProgram, mesocycle, equipmentFilter, customPrograms, currentUser]);
+        saveUserData(currentUser.username, { workoutLog, activeProgram, mesocycle, equipmentFilter, customPrograms, schedule });
+      }, [workoutLog, activeProgram, mesocycle, equipmentFilter, customPrograms, schedule, currentUser]);
 
       const handleLogin = (account) => {
         setCurrentUser(account);
@@ -1222,6 +1511,7 @@
         setMesocycle(data.mesocycle);
         setEquipmentFilter(data.equipmentFilter);
         setCustomPrograms(data.customPrograms);
+        setSchedule(data.schedule);
         setCurrentWorkout(null);
         setActiveTab("dashboard");
       };
@@ -1235,6 +1525,43 @@
         setCurrentWorkout(null);
         setEquipmentFilter("full");
         setCustomPrograms([]);
+        setSchedule(null);
+      };
+
+      // Helper: get today's scheduled workout based on schedule type
+      const getTodaysSchedule = () => {
+        if (!schedule || !activeProgram) return null;
+        const allProgs = [...PROGRAMS, ...(customPrograms || [])];
+        const prog = allProgs.find(p => p.id === activeProgram);
+        if (!prog) return null;
+
+        if (schedule.type === "weekly") {
+          const dayOfWeek = new Date().getDay(); // 0=Sun, 1=Mon, ...
+          const dayName = schedule.mapping[dayOfWeek];
+          if (!dayName || dayName === "Rest") return { isRest: true, dayName: "Rest Day" };
+          if (prog.days[dayName]) return { isRest: false, dayName, exercises: prog.days[dayName] };
+          return { isRest: true, dayName: "Rest Day" };
+        }
+
+        if (schedule.type === "sequential") {
+          const nextIdx = ((schedule.lastCompletedIndex ?? -1) + 1) % prog.split.length;
+          const dayName = prog.split[nextIdx];
+          return { isRest: false, dayName, exercises: prog.days[dayName], splitIndex: nextIdx };
+        }
+
+        return null;
+      };
+
+      // Advance sequential schedule after finishing a workout
+      const advanceSchedule = (dayName) => {
+        if (!schedule || schedule.type !== "sequential" || !activeProgram) return;
+        const allProgs = [...PROGRAMS, ...(customPrograms || [])];
+        const prog = allProgs.find(p => p.id === activeProgram);
+        if (!prog) return;
+        const idx = prog.split.indexOf(dayName);
+        if (idx !== -1) {
+          setSchedule(prev => ({ ...prev, lastCompletedIndex: idx }));
+        }
       };
 
       if (!currentUser) {
@@ -1256,6 +1583,7 @@
       }, [workoutLog]);
 
       const fatigueData = useMemo(() => analyzeFatigue(workoutLog), [workoutLog]);
+      const recoveryInsights = useMemo(() => computeRecoveryInsights(workoutLog, activeProgram, mesocycle, schedule), [workoutLog, activeProgram, mesocycle, schedule]);
       const allProgramsCombined = useMemo(() => [...PROGRAMS, ...(customPrograms || [])], [customPrograms]);
       const mesoSetTargets = useMemo(() => calculateMesoSetTargets(mesocycle, activeProgram, allProgramsCombined), [mesocycle, activeProgram, allProgramsCombined]);
 
@@ -1310,6 +1638,8 @@
                 workoutLog={workoutLog} weeklyVolume={weeklyVolume} activeProgram={activeProgram}
                 mesocycle={mesocycle} fatigueData={fatigueData} mesoSetTargets={mesoSetTargets}
                 onStartWorkout={() => setActiveTab("workout")}
+                todaysSchedule={getTodaysSchedule()} schedule={schedule}
+                recoveryInsights={recoveryInsights}
               />
             )}
             {activeTab === "workout" && (
@@ -1318,6 +1648,7 @@
                 currentWorkout={currentWorkout} setCurrentWorkout={setCurrentWorkout} mesocycle={mesocycle}
                 setMesocycle={setMesocycle} equipmentFilter={equipmentFilter}
                 customPrograms={customPrograms}
+                todaysSchedule={getTodaysSchedule()} schedule={schedule} advanceSchedule={advanceSchedule}
               />
             )}
             {activeTab === "programs" && (
@@ -1328,6 +1659,7 @@
                 setActiveTab={setActiveTab}
                 setCurrentWorkout={setCurrentWorkout}
                 customPrograms={customPrograms} setCustomPrograms={setCustomPrograms}
+                onStartProgram={(progId) => { setPendingProgramId(progId); setShowScheduleSetup(true); }}
               />
             )}
             {activeTab === "volume" && (
@@ -1367,15 +1699,327 @@
           </div>
 
           {showAdmin && <AdminPanel currentUser={currentUser} onClose={() => setShowAdmin(false)} />}
+
+          {showScheduleSetup && pendingProgramId && (() => {
+            const allProgs = [...PROGRAMS, ...(customPrograms || [])];
+            const prog = allProgs.find(p => p.id === pendingProgramId);
+            if (!prog) return null;
+            return (
+              <ScheduleSetup
+                program={prog}
+                onSave={(sched) => {
+                  setSchedule(sched);
+                  setActiveProgram(pendingProgramId);
+                  setCurrentWorkout(null);
+                  const recovery = PROGRAM_RECOVERY[pendingProgramId];
+                  const mesoLen = recovery ? recovery.mesoLength : 4;
+                  setMesocycle({ id: generateId(), totalWeeks: mesoLen, currentWeek: 1, deloadWeeks: [mesoLen] });
+                  setShowScheduleSetup(false);
+                  setPendingProgramId(null);
+                  setActiveTab("workout");
+                }}
+                onCancel={() => {
+                  setShowScheduleSetup(false);
+                  setPendingProgramId(null);
+                }}
+              />
+            );
+          })()}
+        </div>
+      );
+    }
+
+    // ─── WARM-UP PROTOCOL COMPONENT ─────────────────────────────────────────
+    function WarmUpGuide({ exerciseName, onDone }) {
+      const [step, setStep] = useState(0);
+      const steps = [
+        { label: "Light Set", reps: 12, desc: "~30-rep max weight. Easy, get blood flowing.", rest: "60s rest" },
+        { label: "Medium Set", reps: 8, desc: "~20-rep max weight. Start feeling the muscle.", rest: "60s rest" },
+        { label: "Heavy Warm-up", reps: 4, desc: "~10-rep max weight. Prime the movement pattern.", rest: "60-90s rest" },
+      ];
+
+      return (
+        <Card style={{ border: "1px solid #f59e0b33", background: "rgba(245,158,11,0.05)" }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+            <div>
+              <div style={{ fontSize: 11, color: "#f59e0b", textTransform: "uppercase", letterSpacing: 1 }}>Warm-Up Protocol</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "#fff", marginTop: 2 }}>{exerciseName}</div>
+            </div>
+            <button onClick={onDone} style={{ background: "none", border: "1px solid #333", color: "#888", padding: "6px 12px", borderRadius: 6, fontSize: 12, cursor: "pointer", minHeight: 32, touchAction: "manipulation" }}>
+              Skip
+            </button>
+          </div>
+          {steps.map((s, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 10, padding: "8px 0", opacity: i < step ? 0.4 : 1, borderBottom: i < steps.length - 1 ? "1px solid #1f1f1f" : "none" }}>
+              <div style={{
+                width: 28, height: 28, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700,
+                background: i < step ? "#22c55e" : i === step ? "#f59e0b22" : "#1a1a1a",
+                color: i < step ? "#fff" : i === step ? "#f59e0b" : "#555",
+                border: i === step ? "1px solid #f59e0b" : "1px solid transparent",
+              }}>
+                {i < step ? "✓" : i + 1}
+              </div>
+              <div style={{ flex: 1 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: i <= step ? "#fff" : "#555" }}>{s.label} — {s.reps} reps</div>
+                <div style={{ fontSize: 11, color: "#888" }}>{s.desc}</div>
+              </div>
+              {i === step && (
+                <button onClick={() => { if (step < steps.length - 1) setStep(step + 1); else onDone(); }}
+                  style={{ background: "#f59e0b", color: "#000", border: "none", padding: "6px 14px", borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: "pointer", minHeight: 32, touchAction: "manipulation" }}>
+                  Done
+                </button>
+              )}
+            </div>
+          ))}
+          {step >= steps.length && (
+            <button onClick={onDone} style={{ width: "100%", background: "#22c55e", color: "#fff", border: "none", padding: "10px", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: "pointer", marginTop: 8, minHeight: 44, touchAction: "manipulation" }}>
+              Start Working Sets
+            </button>
+          )}
+        </Card>
+      );
+    }
+
+    // ─── SESSION SUMMARY MODAL ────────────────────────────────────────────────
+    function SessionSummary({ workout, workoutLog, onClose }) {
+      const [sessionRating, setSessionRating] = useState(3);
+      const [sessionNotes, setSessionNotes] = useState("");
+      const duration = workout.duration || Math.round((Date.now() - workout.startTime) / 60000);
+      const totalSets = workout.exercises.reduce((sum, e) => sum + e.sets.filter(s => s.done).length, 0);
+      const totalVolume = workout.exercises.reduce((sum, e) => sum + e.sets.filter(s => s.done).reduce((v, s) => v + (s.weight || 0) * (s.reps || 0), 0), 0);
+      const musclesHit = [...new Set(workout.exercises.map(e => e.muscle).filter(Boolean))];
+
+      // Calculate 1RM PRs from this session
+      const prs = [];
+      workout.exercises.forEach(ex => {
+        const best1RM = Math.max(...ex.sets.filter(s => s.done && s.weight > 0 && s.reps > 0).map(s => calculate1RM(s.weight, s.reps)), 0);
+        if (best1RM > 0) {
+          const history = getExercise1RMHistory(workoutLog, ex.name);
+          const prevBest = history.length > 0 ? Math.max(...history.map(h => h.e1rm)) : 0;
+          if (best1RM > prevBest && prevBest > 0) {
+            prs.push({ name: ex.name, e1rm: best1RM, prev: prevBest });
+          }
+        }
+      });
+
+      const ratingLabels = ["", "Terrible", "Below Average", "Average", "Great", "Amazing"];
+      const ratingColors = ["", "#ef4444", "#f59e0b", "#888", "#22c55e", "#10b981"];
+
+      return (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.9)", zIndex: 200, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+          <div style={{ background: "#1a1a1a", borderRadius: 16, padding: 24, maxWidth: 400, width: "100%", maxHeight: "85vh", overflowY: "auto" }}>
+            <div style={{ textAlign: "center", marginBottom: 16 }}>
+              <div style={{ fontSize: 40, marginBottom: 4 }}>💪</div>
+              <div style={{ fontSize: 20, fontWeight: 700, color: "#fff" }}>Workout Complete!</div>
+              <div style={{ fontSize: 14, color: "#888", marginTop: 4 }}>{workout.dayName} — {duration} min</div>
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 8, marginBottom: 16 }}>
+              <div style={{ background: "#0f0f0f", borderRadius: 10, padding: 12, textAlign: "center" }}>
+                <div style={{ fontSize: 22, fontWeight: 700, color: "#22c55e" }}>{totalSets}</div>
+                <div style={{ fontSize: 10, color: "#888" }}>Sets</div>
+              </div>
+              <div style={{ background: "#0f0f0f", borderRadius: 10, padding: 12, textAlign: "center" }}>
+                <div style={{ fontSize: 22, fontWeight: 700, color: "#818cf8" }}>{musclesHit.length}</div>
+                <div style={{ fontSize: 10, color: "#888" }}>Muscles</div>
+              </div>
+              <div style={{ background: "#0f0f0f", borderRadius: 10, padding: 12, textAlign: "center" }}>
+                <div style={{ fontSize: 22, fontWeight: 700, color: "#f59e0b" }}>{totalVolume > 1000 ? Math.round(totalVolume / 1000) + "k" : totalVolume}</div>
+                <div style={{ fontSize: 10, color: "#888" }}>Volume (lbs)</div>
+              </div>
+            </div>
+
+            {prs.length > 0 && (
+              <Card style={{ border: "1px solid #22c55e44", background: "rgba(34,197,94,0.05)" }}>
+                <div style={{ fontSize: 13, fontWeight: 700, color: "#22c55e", marginBottom: 6 }}>🏆 New Estimated 1RM PRs!</div>
+                {prs.map((pr, i) => (
+                  <div key={i} style={{ fontSize: 12, color: "#ccc", marginBottom: 4 }}>
+                    {pr.name}: {pr.e1rm} lbs (was {pr.prev})
+                  </div>
+                ))}
+              </Card>
+            )}
+
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#fff", marginBottom: 8 }}>How was this session?</div>
+              <div style={{ display: "flex", gap: 6 }}>
+                {[1, 2, 3, 4, 5].map(r => (
+                  <button key={r} onClick={() => setSessionRating(r)} style={{
+                    flex: 1, padding: "10px 0", borderRadius: 8, border: sessionRating === r ? `2px solid ${ratingColors[r]}` : "1px solid #333",
+                    background: sessionRating === r ? `${ratingColors[r]}22` : "#0f0f0f", color: sessionRating === r ? ratingColors[r] : "#555",
+                    fontSize: 18, cursor: "pointer", minHeight: 44, touchAction: "manipulation",
+                  }}>
+                    {r}
+                  </button>
+                ))}
+              </div>
+              <div style={{ textAlign: "center", fontSize: 12, color: ratingColors[sessionRating], marginTop: 4 }}>{ratingLabels[sessionRating]}</div>
+            </div>
+
+            <button onClick={() => onClose(sessionRating, sessionNotes)} style={{
+              width: "100%", background: "linear-gradient(135deg, #22c55e, #16a34a)", color: "#fff", border: "none",
+              padding: "14px", borderRadius: 8, fontSize: 16, fontWeight: 700, cursor: "pointer", minHeight: 48, touchAction: "manipulation",
+            }}>
+              Save & Close
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    // ─── MUSCLE RECOVERY STATUS COMPONENT ────────────────────────────────────
+    function MuscleRecoveryStatus({ workoutLog }) {
+      const recovery = useMemo(() => computeMuscleRecovery(workoutLog), [workoutLog]);
+      const statusColors = { fresh: "#22c55e", recovering: "#f59e0b", fatigued: "#ef4444", sore: "#dc2626" };
+      const mainMuscles = ["chest", "back", "shoulders", "quads", "hamstrings", "biceps", "triceps", "glutes"];
+
+      return (
+        <Card>
+          <div style={{ fontSize: 14, fontWeight: 600, color: "#fff", marginBottom: 10 }}>Muscle Recovery Status</div>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 6 }}>
+            {mainMuscles.map(muscle => {
+              const r = recovery[muscle];
+              if (!r) return null;
+              return (
+                <div key={muscle} style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 8px", background: "#0f0f0f", borderRadius: 6 }}>
+                  <div style={{
+                    width: 8, height: 8, borderRadius: "50%", flexShrink: 0,
+                    background: statusColors[r.status],
+                    boxShadow: `0 0 6px ${statusColors[r.status]}44`,
+                  }} />
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontSize: 11, color: "#ccc", textTransform: "capitalize" }}>{muscle}</div>
+                    <div style={{ fontSize: 9, color: "#666" }}>{r.label} • {r.pct}%</div>
+                  </div>
+                  <div style={{ width: 30, height: 4, background: "#1f1f1f", borderRadius: 2, overflow: "hidden" }}>
+                    <div style={{ height: "100%", width: `${r.pct}%`, background: statusColors[r.status] }} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </Card>
+      );
+    }
+
+    // ─── SCHEDULE SETUP MODAL ────────────────────────────────────────────────
+    function ScheduleSetup({ program, onSave, onCancel }) {
+      const DAY_NAMES = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+      const [scheduleType, setScheduleType] = useState(null);
+      const [weeklyMapping, setWeeklyMapping] = useState({
+        0: "Rest", 1: "Rest", 2: "Rest", 3: "Rest", 4: "Rest", 5: "Rest", 6: "Rest"
+      });
+
+      // Auto-fill weekly mapping from program recovery data or split
+      const autoFill = () => {
+        const recovery = PROGRAM_RECOVERY[program.id];
+        if (recovery && recovery.weeklySchedule) {
+          // Use the researched recommended schedule
+          const newMapping = {};
+          Object.keys(recovery.weeklySchedule).forEach(k => {
+            newMapping[k] = recovery.weeklySchedule[k];
+          });
+          setWeeklyMapping(newMapping);
+        } else {
+          // Fallback: fill from split starting Monday
+          const newMapping = { 0: "Rest", 1: "Rest", 2: "Rest", 3: "Rest", 4: "Rest", 5: "Rest", 6: "Rest" };
+          const workDays = [1, 2, 3, 4, 5, 6, 0];
+          let dayIdx = 0;
+          for (let i = 0; i < program.split.length && dayIdx < workDays.length; i++) {
+            newMapping[workDays[dayIdx]] = program.split[i];
+            dayIdx++;
+          }
+          setWeeklyMapping(newMapping);
+        }
+      };
+
+      if (!scheduleType) {
+        return (
+          <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", zIndex: 200, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+            <div style={{ background: "#1a1a1a", borderRadius: 16, padding: 24, maxWidth: 400, width: "100%" }}>
+              <div style={{ fontSize: 18, fontWeight: 700, color: "#fff", marginBottom: 4 }}>Schedule Your Workouts</div>
+              <div style={{ fontSize: 13, color: "#888", marginBottom: 20 }}>{program.name} — {program.daysPerWeek} days/week</div>
+
+              <Card style={{ cursor: "pointer", border: "1px solid #333" }} onClick={() => setScheduleType("weekly")}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 10, background: "rgba(34,197,94,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Icon name="calendar" size={20} color="#22c55e" />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 15, fontWeight: 600, color: "#fff" }}>Weekly Schedule</div>
+                    <div style={{ fontSize: 12, color: "#888", marginTop: 2 }}>Assign workouts to specific weekdays</div>
+                  </div>
+                </div>
+              </Card>
+
+              <Card style={{ cursor: "pointer", border: "1px solid #333" }} onClick={() => {
+                onSave({ type: "sequential", lastCompletedIndex: -1 });
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                  <div style={{ width: 40, height: 40, borderRadius: 10, background: "rgba(99,102,241,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <Icon name="trending-up" size={20} color="#818cf8" />
+                  </div>
+                  <div>
+                    <div style={{ fontSize: 15, fontWeight: 600, color: "#fff" }}>Sequential</div>
+                    <div style={{ fontSize: 12, color: "#888", marginTop: 2 }}>Just follow the order — do the next workout whenever you train</div>
+                  </div>
+                </div>
+              </Card>
+
+              <button onClick={onCancel} style={{ width: "100%", background: "none", border: "1px solid #333", color: "#888", padding: "10px", borderRadius: 8, fontSize: 14, cursor: "pointer", marginTop: 8, minHeight: 44, touchAction: "manipulation" }}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      // Weekly assignment UI
+      return (
+        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", zIndex: 200, display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+          <div style={{ background: "#1a1a1a", borderRadius: 16, padding: 24, maxWidth: 400, width: "100%", maxHeight: "80vh", overflowY: "auto" }}>
+            <div style={{ fontSize: 18, fontWeight: 700, color: "#fff", marginBottom: 4 }}>Weekly Schedule</div>
+            <div style={{ fontSize: 13, color: "#888", marginBottom: 12 }}>Assign a workout to each day of the week</div>
+
+            <button onClick={autoFill} style={{ background: "rgba(34,197,94,0.15)", border: "1px solid #22c55e33", color: "#22c55e", padding: "8px 14px", borderRadius: 8, fontSize: 12, fontWeight: 600, cursor: "pointer", marginBottom: 16, minHeight: 36, touchAction: "manipulation" }}>
+              Auto-fill
+            </button>
+
+            {DAY_NAMES.map((dayLabel, dayIdx) => (
+              <div key={dayIdx} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10 }}>
+                <div style={{ width: 80, fontSize: 13, color: "#ccc", fontWeight: 500 }}>{dayLabel}</div>
+                <select
+                  value={weeklyMapping[dayIdx]}
+                  onChange={(e) => setWeeklyMapping(prev => ({ ...prev, [dayIdx]: e.target.value }))}
+                  style={{ flex: 1, background: "#0f0f0f", color: "#fff", border: "1px solid #333", borderRadius: 8, padding: "8px 10px", fontSize: 14, minHeight: 40 }}
+                >
+                  <option value="Rest">Rest Day</option>
+                  {[...new Set(program.split)].map(dayName => (
+                    <option key={dayName} value={dayName}>{dayName}</option>
+                  ))}
+                </select>
+              </div>
+            ))}
+
+            <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
+              <button onClick={() => setScheduleType(null)} style={{ flex: 1, background: "none", border: "1px solid #333", color: "#888", padding: "10px", borderRadius: 8, fontSize: 14, cursor: "pointer", minHeight: 44, touchAction: "manipulation" }}>
+                Back
+              </button>
+              <button onClick={() => onSave({ type: "weekly", mapping: weeklyMapping })} style={{ flex: 1, background: "#22c55e", color: "#fff", border: "none", padding: "10px", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: "pointer", minHeight: 44, touchAction: "manipulation" }}>
+                Save Schedule
+              </button>
+            </div>
+          </div>
         </div>
       );
     }
 
     // ─── DASHBOARD VIEW ─────────────────────────────────────────────────────
-    function DashboardView({ workoutLog, weeklyVolume, activeProgram, mesocycle, fatigueData, mesoSetTargets, onStartWorkout }) {
+    function DashboardView({ workoutLog, weeklyVolume, activeProgram, mesocycle, fatigueData, mesoSetTargets, onStartWorkout, todaysSchedule, schedule, recoveryInsights }) {
       const today = getToday();
       const thisWeek = getWeekStart(today);
       const workoutsThisWeek = workoutLog.filter(w => getWeekStart(w.date) === thisWeek).length;
+      const alreadyTrainedToday = workoutLog.some(w => w.date === today);
 
       const overloadAlerts = useMemo(() => {
         const alerts = [];
@@ -1421,9 +2065,75 @@
 
       const autoAdjustments = useMemo(() => computeAutoAdjustments(workoutLog, {}), [workoutLog]);
 
+      const DAY_NAMES_SHORT = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
       return (
         <div style={{ paddingTop: 16 }}>
           <div style={{ fontSize: 18, fontWeight: 700, color: "#fff", marginBottom: 16 }}>Dashboard</div>
+
+          {todaysSchedule && (
+            <Card style={{ border: todaysSchedule.isRest ? "1px solid #333" : "1px solid #22c55e33", background: todaysSchedule.isRest ? "#141414" : "linear-gradient(135deg, rgba(34,197,94,0.08), rgba(34,197,94,0.02))" }}>
+              <div style={{ fontSize: 11, color: "#888", textTransform: "uppercase", letterSpacing: 1, marginBottom: 6 }}>
+                {alreadyTrainedToday ? "Completed Today" : "Today's Workout"}
+              </div>
+              {todaysSchedule.isRest ? (
+                <div>
+                  <div style={{ fontSize: 22, fontWeight: 700, color: "#888" }}>Rest Day</div>
+                  <div style={{ fontSize: 13, color: "#666", marginTop: 4 }}>Recovery is where the gains happen. Stay hydrated and stretch.</div>
+                </div>
+              ) : (
+                <div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <div>
+                      <div style={{ fontSize: 22, fontWeight: 700, color: "#fff" }}>{todaysSchedule.dayName}</div>
+                      <div style={{ fontSize: 13, color: "#888", marginTop: 2 }}>{todaysSchedule.exercises?.length || 0} exercises</div>
+                    </div>
+                    {!alreadyTrainedToday && (
+                      <button onClick={onStartWorkout} style={{
+                        background: "linear-gradient(135deg, #22c55e, #16a34a)", color: "#fff", border: "none",
+                        padding: "10px 20px", borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: "pointer",
+                        minHeight: 44, display: "flex", alignItems: "center", gap: 6, touchAction: "manipulation",
+                      }}>
+                        <Icon name="play" size={16} color="#fff" />
+                        Let's Go
+                      </button>
+                    )}
+                    {alreadyTrainedToday && (
+                      <div style={{ background: "rgba(34,197,94,0.15)", padding: "8px 14px", borderRadius: 8 }}>
+                        <Icon name="check" size={20} color="#22c55e" />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+              {schedule?.type === "weekly" && (
+                <div style={{ display: "flex", gap: 4, marginTop: 12, paddingTop: 12, borderTop: "1px solid #222" }}>
+                  {DAY_NAMES_SHORT.map((d, i) => {
+                    const isToday = new Date().getDay() === i;
+                    const dayVal = schedule.mapping[i];
+                    const isRest = !dayVal || dayVal === "Rest";
+                    return (
+                      <div key={i} style={{
+                        flex: 1, textAlign: "center", padding: "4px 2px", borderRadius: 6,
+                        background: isToday ? "rgba(34,197,94,0.2)" : "transparent",
+                        border: isToday ? "1px solid #22c55e44" : "1px solid transparent",
+                      }}>
+                        <div style={{ fontSize: 9, color: isToday ? "#22c55e" : "#666", fontWeight: isToday ? 700 : 400 }}>{d}</div>
+                        <div style={{ fontSize: 8, color: isRest ? "#444" : (isToday ? "#22c55e" : "#888"), marginTop: 2, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {isRest ? "Rest" : dayVal}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+              {schedule?.type === "sequential" && (
+                <div style={{ fontSize: 11, color: "#666", marginTop: 8, paddingTop: 8, borderTop: "1px solid #222" }}>
+                  Sequential mode — next workout in rotation
+                </div>
+              )}
+            </Card>
+          )}
 
           <Card>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
@@ -1482,6 +2192,50 @@
             </div>
           </Card>
 
+          {recoveryInsights && recoveryInsights.needsDeload && (
+            <Card style={{ border: "1px solid #ef444444", background: "rgba(239,68,68,0.05)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+                <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(239,68,68,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                  <Icon name="alert-triangle" size={18} color="#ef4444" />
+                </div>
+                <div style={{ fontSize: 15, fontWeight: 700, color: "#ef4444" }}>Deload Recommended</div>
+              </div>
+              {recoveryInsights.deloadReasons.map((reason, i) => (
+                <div key={i} style={{ fontSize: 12, color: "#ccc", marginBottom: 6, paddingLeft: 8, borderLeft: "2px solid #ef4444" }}>
+                  {reason}
+                </div>
+              ))}
+              {recoveryInsights.deloadProtocol && (
+                <div style={{ background: "#0f0f0f", borderRadius: 8, padding: 10, marginTop: 8 }}>
+                  <div style={{ fontSize: 12, fontWeight: 600, color: "#f59e0b", marginBottom: 4 }}>Deload Protocol</div>
+                  <div style={{ fontSize: 12, color: "#888" }}>
+                    Reduce volume by {recoveryInsights.deloadProtocol.volumeReduction}% and intensity by {recoveryInsights.deloadProtocol.intensityReduction}% for {recoveryInsights.deloadProtocol.duration}.
+                  </div>
+                </div>
+              )}
+            </Card>
+          )}
+
+          {recoveryInsights && recoveryInsights.suggestions.length > 0 && (
+            <Card style={{ border: "1px solid #f59e0b33" }}>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "#f59e0b", marginBottom: 8 }}>Recovery Insights</div>
+              {recoveryInsights.suggestions.map((s, i) => (
+                <div key={i} style={{ fontSize: 12, color: "#ccc", marginBottom: 6, paddingLeft: 8, borderLeft: "2px solid #f59e0b" }}>
+                  {s}
+                </div>
+              ))}
+            </Card>
+          )}
+
+          {recoveryInsights && recoveryInsights.programTip && !recoveryInsights.needsDeload && (
+            <Card>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "#818cf8", marginBottom: 6 }}>Program Tip</div>
+              <div style={{ fontSize: 12, color: "#888" }}>{recoveryInsights.programTip}</div>
+            </Card>
+          )}
+
+          <MuscleRecoveryStatus workoutLog={workoutLog} />
+
           {overloadAlerts.length > 0 && (
             <Card>
               <div style={{ fontSize: 14, fontWeight: 600, color: "#10b981", marginBottom: 8 }}>Progressive Overload</div>
@@ -1508,7 +2262,7 @@
     }
 
     // ─── WORKOUT VIEW ───────────────────────────────────────────────────────
-    function WorkoutView({ workoutLog, setWorkoutLog, activeProgram, currentWorkout, setCurrentWorkout, mesocycle, setMesocycle, equipmentFilter, customPrograms }) {
+    function WorkoutView({ workoutLog, setWorkoutLog, activeProgram, currentWorkout, setCurrentWorkout, mesocycle, setMesocycle, equipmentFilter, customPrograms, todaysSchedule, schedule, advanceSchedule }) {
       const allPrograms = [...PROGRAMS, ...(customPrograms || [])];
       const [restTimer, setRestTimer] = useState(null);
       const [restTime, setRestTime] = useState(0);
@@ -1516,6 +2270,9 @@
       const [selectedMuscle, setSelectedMuscle] = useState(null);
       const [timerInterval, setTimerIntervalState] = useState(null);
       const [completedExerciseIdx, setCompletedExerciseIdx] = useState(null);
+      const [showSessionSummary, setShowSessionSummary] = useState(false);
+      const [finishedWorkoutData, setFinishedWorkoutData] = useState(null);
+      const [showWarmUp, setShowWarmUp] = useState(null); // exercise name or null
 
       useEffect(() => {
         return () => { if (timerInterval) clearInterval(timerInterval); };
@@ -1535,14 +2292,16 @@
       };
 
       const startWorkout = (dayName, exercises) => {
-        const filteredExercises = filterExercisesByEquipment(exercises, equipmentFilter);
+        const equipFiltered = filterExercisesByEquipment(exercises, equipmentFilter);
         const currentWeek = mesocycle?.currentWeek || 1;
         const isDeloadWeek = mesocycle?.deloadWeeks?.includes(currentWeek);
+        const filteredExercises = filterDeloadExercises(equipFiltered, isDeloadWeek);
+        const firstExName = filteredExercises.length > 0 ? filteredExercises[0].exercise : null;
         setCurrentWorkout({
           id: generateId(), date: getToday(), dayName, startTime: Date.now(),
           exercises: filteredExercises.map(ex => ({
             name: ex.exercise, muscle: ex.muscle, targetSets: ex.sets, targetReps: ex.reps,
-            sets: Array.from({ length: ex.sets }, () => ({
+            sets: Array.from({ length: isDeloadWeek ? Math.max(1, Math.ceil(ex.sets * 0.5)) : ex.sets }, () => ({
               weight: 0, reps: 0, done: false,
               targetRir: getTargetRIR(currentWeek, isDeloadWeek),
               actualRir: 0
@@ -1550,12 +2309,16 @@
             feedback: null,
           })),
         });
+        // Show warm-up for first exercise
+        if (firstExName && !isDeloadWeek) setShowWarmUp(firstExName);
       };
 
       const finishWorkout = () => {
         if (!currentWorkout) return;
         const duration = Math.round((Date.now() - currentWorkout.startTime) / 60000);
-        setWorkoutLog(prev => [...prev, { ...currentWorkout, duration }]);
+        const finishedData = { ...currentWorkout, duration };
+        setFinishedWorkoutData(finishedData);
+        setWorkoutLog(prev => [...prev, finishedData]);
         if (mesocycle) {
           const workoutsThisWeek = workoutLog.filter(w => getWeekStart(w.date) === getWeekStart(getToday())).length + 1;
           const prog = allPrograms.find(p => p.id === activeProgram);
@@ -1563,9 +2326,14 @@
             setMesocycle(prev => prev ? { ...prev, currentWeek: Math.min(prev.currentWeek + 1, prev.totalWeeks) } : prev);
           }
         }
+        // Advance sequential schedule
+        if (advanceSchedule && currentWorkout.dayName) {
+          advanceSchedule(currentWorkout.dayName);
+        }
         setCurrentWorkout(null);
         if (timerInterval) clearInterval(timerInterval);
         setRestTimer(null);
+        setShowSessionSummary(true);
       };
 
       const addExercise = (exerciseName, muscle) => {
@@ -1658,13 +2426,39 @@
       };
 
       if (!currentWorkout) {
+        const todayDayName = todaysSchedule && !todaysSchedule.isRest ? todaysSchedule.dayName : null;
         return (
           <div style={{ paddingTop: 16 }}>
             <div style={{ fontSize: 18, fontWeight: 700, color: "#fff", marginBottom: 16 }}>Start Workout</div>
+
+            {todayDayName && (
+              <Card style={{ cursor: "pointer", border: "1px solid #22c55e44", background: "linear-gradient(135deg, rgba(34,197,94,0.08), rgba(34,197,94,0.02))" }} onClick={() => {
+                const prog = allPrograms.find(p => p.id === activeProgram);
+                if (prog) startWorkout(todayDayName, prog.days[todayDayName]);
+              }}>
+                <div style={{ fontSize: 11, color: "#22c55e", textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>Scheduled Today</div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: "#fff" }}>{todayDayName}</div>
+                <div style={{ fontSize: 12, color: "#888", marginTop: 4 }}>
+                  {allPrograms.find(p => p.id === activeProgram)?.days[todayDayName]?.length || 0} exercises
+                </div>
+              </Card>
+            )}
+
+            {todaysSchedule && todaysSchedule.isRest && (
+              <Card style={{ border: "1px solid #333", marginBottom: 12 }}>
+                <div style={{ fontSize: 11, color: "#888", textTransform: "uppercase", letterSpacing: 1, marginBottom: 4 }}>Today</div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: "#666" }}>Rest Day</div>
+                <div style={{ fontSize: 12, color: "#555", marginTop: 4 }}>You can still pick a workout below if you want to train.</div>
+              </Card>
+            )}
+
             {activeProgram ? (
               <div>
+                {todayDayName && (
+                  <div style={{ fontSize: 12, color: "#666", marginBottom: 8, marginTop: 4 }}>Or choose a different workout:</div>
+                )}
                 {allPrograms.find(p => p.id === activeProgram)?.split.map((dayName, i) => (
-                  <Card key={i} style={{ cursor: "pointer" }} onClick={() => {
+                  <Card key={i} style={{ cursor: "pointer", opacity: dayName === todayDayName ? 0.5 : 1 }} onClick={() => {
                     const prog = allPrograms.find(p => p.id === activeProgram);
                     startWorkout(dayName, prog.days[dayName]);
                   }}>
@@ -1686,6 +2480,29 @@
 
       return (
         <div style={{ paddingTop: 16 }}>
+          {showSessionSummary && finishedWorkoutData && (
+            <SessionSummary
+              workout={finishedWorkoutData}
+              workoutLog={workoutLog}
+              onClose={(rating, notes) => {
+                // Save session rating to the last workout log entry
+                setWorkoutLog(prev => {
+                  const updated = [...prev];
+                  if (updated.length > 0) {
+                    updated[updated.length - 1] = { ...updated[updated.length - 1], sessionRating: rating, sessionNotes: notes };
+                  }
+                  return updated;
+                });
+                setShowSessionSummary(false);
+                setFinishedWorkoutData(null);
+              }}
+            />
+          )}
+
+          {showWarmUp && (
+            <WarmUpGuide exerciseName={showWarmUp} onDone={() => setShowWarmUp(null)} />
+          )}
+
           {restTimer && (
             <div style={{ background: "#ef4444", padding: "12px 16px", marginBottom: 12, borderRadius: 8, color: "#fff", fontWeight: 600, fontSize: 16, textAlign: "center" }}>
               Rest: {Math.floor(restTime / 60)}:{String(restTime % 60).padStart(2, "0")}
@@ -1753,6 +2570,12 @@
                     {suggested.weight && (
                       <div style={{ fontSize: 11, color: "#10b981", marginBottom: 8, padding: "6px 8px", background: "#0a0a0a", borderRadius: 6 }}>
                         Suggested: {suggested.weight}×{suggested.reps} based on last session
+                      </div>
+                    )}
+
+                    {EXERCISE_TIPS[ex.name] && exIdx === 0 && !ex.sets.some(s => s.done) && (
+                      <div style={{ fontSize: 11, color: "#818cf8", marginBottom: 8, padding: "6px 8px", background: "rgba(99,102,241,0.05)", borderRadius: 6, borderLeft: "2px solid #818cf8" }}>
+                        💡 {EXERCISE_TIPS[ex.name]}
                       </div>
                     )}
 
@@ -2019,7 +2842,7 @@
       );
     }
 
-    function ProgramsView({ activeProgram, setActiveProgram, setMesocycle, equipmentFilter, setEquipmentFilter, setActiveTab, setCurrentWorkout, customPrograms, setCustomPrograms }) {
+    function ProgramsView({ activeProgram, setActiveProgram, setMesocycle, equipmentFilter, setEquipmentFilter, setActiveTab, setCurrentWorkout, customPrograms, setCustomPrograms, onStartProgram }) {
       const [expandedProgram, setExpandedProgram] = useState(null);
       const [showCreator, setShowCreator] = useState(false);
 
@@ -2323,10 +3146,7 @@
                         <button
                           onClick={(e) => {
                             e.stopPropagation();
-                            setActiveProgram(prog.id);
-                            setCurrentWorkout(null);
-                            setMesocycle({ id: generateId(), totalWeeks: 4, currentWeek: 1, deloadWeeks: [4] });
-                            setActiveTab("workout");
+                            if (onStartProgram) onStartProgram(prog.id);
                           }}
                           style={{
                             flex: 1, background: "#22c55e", color: "#fff", border: "none",
@@ -2392,10 +3212,7 @@
                   <button
                     onClick={(e) => {
                       e.stopPropagation();
-                      setActiveProgram(prog.id);
-                      setCurrentWorkout(null);
-                      setMesocycle({ id: generateId(), totalWeeks: 4, currentWeek: 1, deloadWeeks: [4] });
-                      setActiveTab("workout");
+                      if (onStartProgram) onStartProgram(prog.id);
                     }}
                     style={{
                       width: "100%", background: "#22c55e", color: "#fff", border: "none",
@@ -2515,48 +3332,184 @@
               </div>
             </Card>
           )}
+
+          {(() => {
+            // Mesocycle Performance Summary
+            const weeklyStats = {};
+            for (let w = 1; w <= mesocycle.totalWeeks; w++) weeklyStats[w] = { totalSets: 0, totalVolume: 0, workouts: 0, avgRating: 0, ratingCount: 0 };
+            let weekCounter = 1;
+            let workoutsInWeek = 0;
+            workoutLog.forEach(w => {
+              if (weekCounter <= mesocycle.totalWeeks && weeklyStats[weekCounter]) {
+                const sets = w.exercises.reduce((sum, e) => sum + e.sets.filter(s => s.done).length, 0);
+                const vol = w.exercises.reduce((sum, e) => sum + e.sets.filter(s => s.done).reduce((v, s) => v + (s.weight || 0) * (s.reps || 0), 0), 0);
+                weeklyStats[weekCounter].totalSets += sets;
+                weeklyStats[weekCounter].totalVolume += vol;
+                weeklyStats[weekCounter].workouts++;
+                if (w.sessionRating) { weeklyStats[weekCounter].avgRating += w.sessionRating; weeklyStats[weekCounter].ratingCount++; }
+                workoutsInWeek++;
+              }
+            });
+            const hasData = Object.values(weeklyStats).some(ws => ws.workouts > 0);
+            if (!hasData) return null;
+            return (
+              <Card>
+                <div style={{ fontSize: 14, fontWeight: 600, color: "#fff", marginBottom: 12 }}>Mesocycle Performance</div>
+                {Object.entries(weeklyStats).map(([week, stats]) => {
+                  if (stats.workouts === 0) return (
+                    <div key={week} style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 0", opacity: 0.3 }}>
+                      <div style={{ width: 50, fontSize: 12, color: "#888" }}>Wk {week}</div>
+                      <div style={{ flex: 1, fontSize: 12, color: "#555" }}>—</div>
+                    </div>
+                  );
+                  const avgR = stats.ratingCount > 0 ? (stats.avgRating / stats.ratingCount).toFixed(1) : "—";
+                  return (
+                    <div key={week} style={{ display: "flex", alignItems: "center", gap: 8, padding: "6px 0", borderBottom: "1px solid #1f1f1f" }}>
+                      <div style={{ width: 50, fontSize: 12, fontWeight: 600, color: parseInt(week) === mesocycle.currentWeek ? "#22c55e" : "#ccc" }}>Wk {week}</div>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 11, color: "#888" }}>{stats.workouts} sessions • {stats.totalSets} sets • {stats.totalVolume > 1000 ? Math.round(stats.totalVolume / 1000) + "k" : stats.totalVolume} lbs</div>
+                      </div>
+                      {avgR !== "—" && <div style={{ fontSize: 12, fontWeight: 600, color: "#f59e0b" }}>{avgR}★</div>}
+                    </div>
+                  );
+                })}
+              </Card>
+            );
+          })()}
+
+          <Card>
+            <div style={{ fontSize: 14, fontWeight: 600, color: "#fff", marginBottom: 8 }}>Mesocycle Controls</div>
+            <div style={{ display: "flex", gap: 8 }}>
+              <button onClick={() => setMesocycle(prev => prev ? { ...prev, currentWeek: Math.max(1, prev.currentWeek - 1) } : prev)} style={{
+                flex: 1, background: "#1a1a1a", color: "#888", border: "1px solid #333", padding: "8px", borderRadius: 8, fontSize: 12, cursor: "pointer", minHeight: 36, touchAction: "manipulation",
+              }}>← Prev Week</button>
+              <button onClick={() => setMesocycle(prev => prev ? { ...prev, currentWeek: Math.min(prev.totalWeeks, prev.currentWeek + 1) } : prev)} style={{
+                flex: 1, background: "#1a1a1a", color: "#888", border: "1px solid #333", padding: "8px", borderRadius: 8, fontSize: 12, cursor: "pointer", minHeight: 36, touchAction: "manipulation",
+              }}>Next Week →</button>
+            </div>
+          </Card>
         </div>
       );
     }
 
     // ─── HISTORY VIEW ───────────────────────────────────────────────────────
     function HistoryView({ workoutLog, setWorkoutLog }) {
+      const [showStrength, setShowStrength] = useState(false);
+      const ratingColors = ["", "#ef4444", "#f59e0b", "#888", "#22c55e", "#10b981"];
+
+      // Get top compound exercises for 1RM tracking
+      const topExercises = useMemo(() => {
+        const exCounts = {};
+        workoutLog.forEach(w => w.exercises.forEach(ex => {
+          exCounts[ex.name] = (exCounts[ex.name] || 0) + 1;
+        }));
+        return Object.entries(exCounts)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 8)
+          .map(([name]) => name);
+      }, [workoutLog]);
+
       return (
         <div style={{ paddingTop: 16 }}>
-          <div style={{ fontSize: 18, fontWeight: 700, color: "#fff", marginBottom: 16 }}>Workout History</div>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 16 }}>
+            <div style={{ fontSize: 18, fontWeight: 700, color: "#fff" }}>History</div>
+            <button onClick={() => setShowStrength(!showStrength)} style={{
+              background: showStrength ? "#22c55e22" : "#1a1a1a", border: showStrength ? "1px solid #22c55e44" : "1px solid #333",
+              color: showStrength ? "#22c55e" : "#888", padding: "6px 12px", borderRadius: 6, fontSize: 12, fontWeight: 600,
+              cursor: "pointer", minHeight: 32, touchAction: "manipulation",
+            }}>
+              {showStrength ? "Show Workouts" : "Strength Progress"}
+            </button>
+          </div>
 
-          {workoutLog.length === 0 ? (
-            <Card>
-              <div style={{ fontSize: 14, color: "#888", textAlign: "center", padding: 20 }}>
-                No workouts logged yet. Start training!
-              </div>
-            </Card>
-          ) : (
-            workoutLog.slice().reverse().map((w, i) => (
-              <Card key={w.id}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 8 }}>
-                  <div>
-                    <div style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>{w.dayName}</div>
-                    <div style={{ fontSize: 12, color: "#888", marginTop: 2 }}>
-                      {formatDate(w.date)} • {w.duration} min
+          {showStrength ? (
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "#fff", marginBottom: 12 }}>Estimated 1RM Progress</div>
+              {topExercises.map(exName => {
+                const history = getExercise1RMHistory(workoutLog, exName);
+                if (history.length < 2) return null;
+                const current = history[history.length - 1].e1rm;
+                const first = history[0].e1rm;
+                const change = current - first;
+                return (
+                  <Card key={exName}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <div>
+                        <div style={{ fontSize: 13, fontWeight: 600, color: "#fff" }}>{exName}</div>
+                        <div style={{ fontSize: 11, color: "#888", marginTop: 2 }}>{history.length} sessions tracked</div>
+                      </div>
+                      <div style={{ textAlign: "right" }}>
+                        <div style={{ fontSize: 18, fontWeight: 700, color: "#fff" }}>{current} lbs</div>
+                        <div style={{ fontSize: 11, color: change >= 0 ? "#22c55e" : "#ef4444", fontWeight: 600 }}>
+                          {change >= 0 ? "+" : ""}{change} lbs
+                        </div>
+                      </div>
                     </div>
+                    <div style={{ display: "flex", gap: 2, marginTop: 8, height: 24, alignItems: "flex-end" }}>
+                      {history.slice(-12).map((h, i) => {
+                        const max1rm = Math.max(...history.map(x => x.e1rm));
+                        const min1rm = Math.min(...history.map(x => x.e1rm));
+                        const range = max1rm - min1rm || 1;
+                        const pct = ((h.e1rm - min1rm) / range) * 100;
+                        return (
+                          <div key={i} style={{ flex: 1, background: "#22c55e", borderRadius: 2, minHeight: 3, height: `${Math.max(12, pct)}%`, opacity: 0.5 + (i / history.slice(-12).length) * 0.5 }} />
+                        );
+                      })}
+                    </div>
+                  </Card>
+                );
+              })}
+              {topExercises.every(exName => getExercise1RMHistory(workoutLog, exName).length < 2) && (
+                <Card><div style={{ fontSize: 13, color: "#888", textAlign: "center" }}>Log at least 2 workouts to see strength progress.</div></Card>
+              )}
+            </div>
+          ) : (
+            <div>
+              {workoutLog.length === 0 ? (
+                <Card>
+                  <div style={{ fontSize: 14, color: "#888", textAlign: "center", padding: 20 }}>
+                    No workouts logged yet. Start training!
                   </div>
-                  <button
-                    onClick={() => setWorkoutLog(prev => prev.filter(x => x.id !== w.id))}
-                    style={{
-                      background: "none", border: "none", color: "#ef4444", cursor: "pointer",
-                      fontSize: 14, padding: 4, minWidth: 32, minHeight: 32, display: "flex",
-                      alignItems: "center", justifyContent: "center", touchAction: "manipulation",
-                    }}
-                  >
-                    <Icon name="x" size={18} color="#ef4444" />
-                  </button>
-                </div>
-                <div style={{ fontSize: 12, color: "#888" }}>
-                  {w.exercises.length} exercises • {w.exercises.reduce((sum, ex) => sum + ex.sets.filter(s => s.done).length, 0)} sets
-                </div>
-              </Card>
-            ))
+                </Card>
+              ) : (
+                workoutLog.slice().reverse().map((w, i) => {
+                  const totalVolume = w.exercises.reduce((sum, e) => sum + e.sets.filter(s => s.done).reduce((v, s) => v + (s.weight || 0) * (s.reps || 0), 0), 0);
+                  return (
+                    <Card key={w.id}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", marginBottom: 8 }}>
+                        <div>
+                          <div style={{ fontSize: 14, fontWeight: 600, color: "#fff" }}>{w.dayName}</div>
+                          <div style={{ fontSize: 12, color: "#888", marginTop: 2 }}>
+                            {formatDate(w.date)} • {w.duration} min
+                          </div>
+                        </div>
+                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                          {w.sessionRating && (
+                            <div style={{ background: `${ratingColors[w.sessionRating]}22`, color: ratingColors[w.sessionRating], padding: "4px 8px", borderRadius: 6, fontSize: 12, fontWeight: 600 }}>
+                              {w.sessionRating}/5
+                            </div>
+                          )}
+                          <button
+                            onClick={() => setWorkoutLog(prev => prev.filter(x => x.id !== w.id))}
+                            style={{
+                              background: "none", border: "none", color: "#ef4444", cursor: "pointer",
+                              fontSize: 14, padding: 4, minWidth: 32, minHeight: 32, display: "flex",
+                              alignItems: "center", justifyContent: "center", touchAction: "manipulation",
+                            }}
+                          >
+                            <Icon name="x" size={18} color="#ef4444" />
+                          </button>
+                        </div>
+                      </div>
+                      <div style={{ fontSize: 12, color: "#888" }}>
+                        {w.exercises.length} exercises • {w.exercises.reduce((sum, ex) => sum + ex.sets.filter(s => s.done).length, 0)} sets
+                        {totalVolume > 0 && ` • ${totalVolume > 1000 ? Math.round(totalVolume / 1000) + "k" : totalVolume} lbs`}
+                      </div>
+                    </Card>
+                  );
+                })
+              )}
+            </div>
           )}
         </div>
       );
